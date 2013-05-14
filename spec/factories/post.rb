@@ -3,7 +3,9 @@ FactoryGirl.define do
     sequence :title do |n|
       "This is a title#{n}"
     end
-    body "This is the body"
+    sequence :body do |n|
+      "This is the body for post #{n}"
+    end
     user
   end
 end

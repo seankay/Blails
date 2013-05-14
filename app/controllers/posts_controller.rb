@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_filter :authenticate_user!, except: [:index, :show]
+  load_and_authorize_resource
 
   def index
     @posts = Post.all
@@ -19,12 +20,10 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find(params[:id])
     @post.increment_view_count!
   end
 
   def edit
-    @post = Post.find(params[:id])
   end
 
   def update

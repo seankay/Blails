@@ -1,5 +1,7 @@
 %h1 Posts
-=link_to "New Post", new_post_path, class: "btn btn-primary"
+-if user_signed_in?
+  =link_to "New Post", new_post_path, class: "btn btn-primary"
 %hr
 -@posts.each do |post|
-  = render 'post', post: post
+  -if can? :read, post
+    = render 'post', post: post

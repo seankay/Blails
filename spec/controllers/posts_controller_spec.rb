@@ -4,7 +4,9 @@ describe PostsController do
   let(:user) { FactoryGirl.create(:user) }
   
   before do
+    Ability.any_instance.stub(:can?){ true }
     sign_in user
+    stub(:authorize){ true }
   end
 
   describe "GET /posts" do
