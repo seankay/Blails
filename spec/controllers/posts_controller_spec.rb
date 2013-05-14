@@ -82,10 +82,10 @@ describe PostsController do
   end
 
   describe "GET /post/:id" do
-    let(:blog_post) { stub(id: 1) }
+    let(:blog_post) { Post.create(title: "Title", body: "Body of Post") }
     it "gets post" do
       Post.stub(:find){ blog_post }
-      get :show, id: blog_post.id
+      expect{get :show, id: blog_post.id}.to change{blog_post.view_count}.from(0).to(1)
       assigns(:post).should eq blog_post
     end
   end

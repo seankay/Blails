@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130513222725) do
+ActiveRecord::Schema.define(:version => 20130514092738) do
 
   create_table "posts", :force => true do |t|
     t.text     "title",                        :null => false
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20130513222725) do
     t.boolean  "private",    :default => true
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
+    t.integer  "view_count", :default => 0
   end
 
 end
