@@ -15,7 +15,7 @@ describe PostsController do
       controller.stub(:current_user){ user }
     end
 
-    let(:posts) { Post.all }
+    let(:posts) { Post.by_creation_date }
     it "gets all posts" do
       get :index
       assigns(:posts).should eq posts
