@@ -83,6 +83,10 @@ describe "Post Features" do
       it "should show success flash" do
         should have_selector("#flash", text: "Success")
       end
+
+      it "should show edit time stamp" do
+        should have_selector("##{blog_post.id}", text: "#{blog_post.updated_at}")
+      end
     end
   end
 
