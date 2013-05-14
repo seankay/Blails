@@ -54,6 +54,19 @@ describe "Post Features" do
         should have_selector("#flash", text: "Success")
       end
     end
+
+    context "in markdown" do
+      before do
+        fill_in "post_title", with: "Title"
+        fill_in "post_body", with: "Body of Post\r\n============="
+        check("post_private")
+        click_button "Create Post"
+      end
+
+      it "should show success flash" do
+        should have_selector("h1", text: "Body of Post")
+      end
+    end
   end
 
   describe "Updating a Post" do
