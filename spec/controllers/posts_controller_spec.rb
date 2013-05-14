@@ -1,11 +1,20 @@
 require 'spec_helper'
 
 describe PostsController do
+  let(:user) { FactoryGirl.create(:user) }
+  
+  before do
+    sign_in user
+  end
 
   describe "GET /posts" do
-    let(:posts) { stub }
+    before do
+      FactoryGirl.create_list(:post, 2)
+      controller.stub(:current_user){ user }
+    end
+
+    let(:posts) { Post.all }
     it "gets all posts" do
-      Post.stub(:all){ posts }
       get :index
       assigns(:posts).should eq posts
     end
@@ -21,7 +30,7 @@ describe PostsController do
   end
 
   describe "GET /posts/:id/edit" do
-    let(:blog_post) { stub(id: 1) }
+    let(:blog_post) { FactoryGirl.create(:post, user: user) }
     it "gets post" do
       Post.stub(:find){ blog_post }
       get :edit, id: blog_post.id

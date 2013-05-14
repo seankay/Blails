@@ -10,4 +10,13 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
   config.infer_base_class_for_anonymous_controllers = false
   config.order = "random"
+
+  config.include Devise::TestHelpers, type: :controller
+end
+
+def login user
+  visit new_user_session_path
+  fill_in "Email", with: user.email
+  fill_in "Password", with: user.password
+  click_button "Sign in"
 end

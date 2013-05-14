@@ -1,10 +1,12 @@
 require 'spec_helper'
 
 describe "Post Features" do
+  let!(:user) { FactoryGirl.create(:user) }
   subject { page }
 
   before do
     FactoryGirl.create_list(:post, 4)
+    login user
   end
   let(:blog_post){ Post.first }
 
@@ -18,7 +20,7 @@ describe "Post Features" do
     it "lists posts" do
       should have_selector("h1", text: "Posts")
       Post.all.each do |blog_post|
-        should have_selector("h4", text: blog_post.title)
+        should have_selector("h2 a", text: blog_post.title)
         should have_selector("p", text: blog_post.body)
         should have_selector("small", text: blog_post.view_count)
       end

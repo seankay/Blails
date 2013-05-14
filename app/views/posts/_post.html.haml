@@ -1,7 +1,9 @@
 %div{id: "#{post.id}"}
-  %h4
+  %h2
     =link_to post.title, post_path(post)
   %p=render_markdown post.body
+  %hr
+  %small="Author: #{post.user.email} |"  
   %small="Views: #{post.view_count} |"  
   %small="Edits: #{post.edit_count} |"  
   %small="Last Edited: #{post.updated_at}"
