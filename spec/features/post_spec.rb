@@ -1,12 +1,15 @@
 require 'spec_helper'
 
 describe "Post Features" do
-  let(:blog_post) { Post.create(title: "test", body: "test body") }
   subject { page }
+
+  before do
+    FactoryGirl.create_list(:post, 4)
+  end
+  let(:blog_post){ Post.first }
 
   describe "Viewing Posts" do
     before do
-      @a_post = Post.create(title: "test", body: "test body")
       visit posts_path
     end
 
@@ -14,8 +17,11 @@ describe "Post Features" do
 
     it "lists posts" do
       should have_selector("h1", text: "Posts")
-      should have_selector("h4", text: @a_post.title)
-      should have_selector("p", text: @a_post.body)
+      Post.all.each do |blog_post|
+        should have_selector("h4", text: blog_post.title)
+        should have_selector("p", text: blog_post.body)
+        should have_selector("small", text: blog_post.view_count)
+      end
     end
   end
 
