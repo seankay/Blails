@@ -1,0 +1,7 @@
+-if object.present? && object.errors.any?
+  #error_explanation
+    .alert.alert-error
+      %h4="The form contains #{pluralize(object.errors.count, "error")}"
+      %ul.unstyled
+        - object.errors.full_messages.each do |message|
+          %li="* #{message}"

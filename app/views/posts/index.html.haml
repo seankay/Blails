@@ -1,0 +1,12 @@
+%h1 Posts
+=link_to "New Post", new_post_path, class: "btn btn-primary"
+%hr
+-@posts.each do |post|
+  %div{id: "#{post.id}"}
+    %h4=post.title
+    %p=post.body
+    .actions
+      =link_to "Edit", edit_post_path(post)
+      |
+      =link_to "Delete", post_path(post), method: :delete, confirm: "Are you sure you want to delete #{post.title}?"
+    %hr

@@ -1,0 +1,12 @@
+=form_for post do |f|
+  =f.label :title
+  =f.text_field :title
+  %br
+  =f.label :body
+  =f.text_area :body, class: "span6"
+  %br
+  =f.label :private?, class: "checkbox inline"
+  =f.check_box :private
+  %br
+  %hr
+  =f.submit class: "btn btn-success"
