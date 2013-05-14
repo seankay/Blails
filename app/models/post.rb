@@ -4,8 +4,13 @@ class Post < ActiveRecord::Base
   validates :title, presence: true, length: { minimum: 3, maximum: 30 }
   validates_presence_of :private
 
-  def increment_view_count
+  def increment_view_count!
     self.view_count += 1
-    self.save
+    self.save!
+  end
+
+  def increment_edit_count!
+    self.edit_count += 1
+    self.save!
   end
 end

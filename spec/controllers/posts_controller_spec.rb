@@ -45,7 +45,8 @@ describe PostsController do
   end
 
   describe "PUT /posts" do
-    let(:blog_post){ {title: "Title", body: "Body of Post"} }
+    let(:updated_blog_post){ {title: "Title", body: "Body of Post"} }
+    let!(:blog_post) { FactoryGirl.create(:post) }
     let(:invalid_blog_post){ {title: "", body: "Body of Post"} }
 
     before do
@@ -53,13 +54,18 @@ describe PostsController do
     end
 
     it "redirects on success" do
-      put :update, id: Post.first.id, :post => blog_post
+      put :update, id: blog_post, :post => updated_blog_post
       response.should redirect_to post_path assigns(:post)
     end
 
     it "renders on failure" do
-      put :update, id: Post.first.id, :post => invalid_blog_post
+      put :update, id: blog_post, :post => invalid_blog_post
       response.should render_template(:new)
+    end
+
+    it "increments edit_count" do
+      put :update, id: blog_post, :post => updated_blog_post
+      assigns(:post).edit_count.should eq 1
     end
   end
 
@@ -82,7 +88,7 @@ describe PostsController do
   end
 
   describe "GET /post/:id" do
-    let(:blog_post) { Post.create(title: "Title", body: "Body of Post") }
+    let(:blog_post) { FactoryGirl.create(:post) }
     it "gets post" do
       Post.stub(:find){ blog_post }
       expect{get :show, id: blog_post.id}.to change{blog_post.view_count}.from(0).to(1)

@@ -19,7 +19,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
-    @post.increment_view_count
+    @post.increment_view_count!
   end
 
   def edit
@@ -29,6 +29,7 @@ class PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
     if @post.update_attributes params[:post]
+      @post.increment_edit_count!
       redirect_to @post, notice: "Successfully updated #{@post.title}."
     else
       render :new

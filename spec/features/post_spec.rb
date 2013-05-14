@@ -74,18 +74,25 @@ describe "Post Features" do
     end
 
     context "without errors" do
+      let(:initial_edit_count) { blog_post.edit_count }
+      let(:initial_edit_timestamp) { blog_post.updated_at }
       before do
         fill_in "post_title", with: "Title"
         fill_in "post_body", with: "Body of Post"
         check("post_private")
         click_button "Update Post"
       end
+
       it "should show success flash" do
         should have_selector("#flash", text: "Success")
       end
 
       it "should show edit time stamp" do
         should have_selector("##{blog_post.id}", text: "#{blog_post.updated_at}")
+      end
+
+      it "should show number of edits" do
+        should have_selector("##{blog_post.id}", text: "#{blog_post.edit_count}")
       end
     end
   end

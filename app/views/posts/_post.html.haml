@@ -3,6 +3,7 @@
     =link_to post.title, post_path(post)
   %p=post.body
   %small="Views: #{post.view_count} |"  
+  %small="Edits: #{post.edit_count} |"  
   %small="Last Edited: #{post.updated_at}"
   .actions
     =link_to "Edit", edit_post_path(post)
