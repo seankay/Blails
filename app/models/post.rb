@@ -5,6 +5,8 @@ class Post < ActiveRecord::Base
 
   belongs_to :user
 
+  scope :by_creation_date, order("created_at desc")
+
   def increment_view_count!
     self.view_count += 1
     self.save!
